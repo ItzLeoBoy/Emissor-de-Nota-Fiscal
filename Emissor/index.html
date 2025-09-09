@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Nota Fiscal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Gerador de Nota Fiscal</h1>
+
+        <div class="form-container">
+            <h2>Adicionar Item</h2>
+            <form id="itemForm">
+                <input type="text" id="descricao" placeholder="Descrição do Produto" required>
+                <input type="number" id="quantidade" placeholder="Quantidade" required>
+                <input type="number" id="valor" placeholder="Valor Unitário" required>
+                <button type="submit">Adicionar Item</button>
+            </form>
+        </div>
+
+        <div class="invoice-container">
+            <h2>Nota Fiscal</h2>
+            <div class="invoice-header">
+                <div>Empresa Exemplo Ltda.</div>
+                <div>CNPJ: 00.000.000/0001-00</div>
+                <div>Data: <span id="dataAtual"></span></div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Quantidade</th>
+                        <th>Valor Unitário</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody id="invoiceTableBody">
+                    </tbody>
+            </table>
+
+            <div class="invoice-total">
+                <p>Total: R$ <span id="totalValue">0.00</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
