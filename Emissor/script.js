@@ -1,50 +1,45 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Referências aos elementos HTML
     const itemForm = document.getElementById('itemForm');
     const invoiceTableBody = document.getElementById('invoiceTableBody');
     const totalValueSpan = document.getElementById('totalValue');
     const dataAtualSpan = document.getElementById('dataAtual');
 
-    let total = 0; // Variável para armazenar o valor total da nota
+    let total = 0;
 
-    // Define a data atual no cabeçalho
+    // NOVO: Variável de controle para gerar códigos sequenciais
+    let codigoCounter = 1;
+
     const today = new Date();
     dataAtualSpan.textContent = today.toLocaleDateString('pt-BR');
 
-    // Função para formatar um número para o formato de moeda (R$ 0,00)
     function formatCurrency(value) {
         return value.toFixed(2).replace('.', ',');
     }
 
-    // Evento para o envio do formulário
     itemForm.addEventListener('submit', (e) => {
-        e.preventDefault(); // Impede o envio padrão do formulário
+        e.preventDefault();
 
-        // Obtém os valores dos campos
+        // NOVO: Gera o código do item usando o contador
+        const codigo = codigoCounter++; // Usa o valor atual e depois o incrementa
+
         const descricao = document.getElementById('descricao').value;
         const quantidade = parseFloat(document.getElementById('quantidade').value);
         const valor = parseFloat(document.getElementById('valor').value);
 
-        // Calcula o subtotal do item
         const subtotal = quantidade * valor;
-        total += subtotal; // Adiciona o subtotal ao total geral
+        total += subtotal;
 
-        // Cria uma nova linha na tabela
         const newRow = document.createElement('tr');
         newRow.innerHTML = `
+            <td>${codigo}</td>
             <td>${descricao}</td>
             <td>${quantidade}</td>
             <td>${formatCurrency(valor)}</td>
             <td>${formatCurrency(subtotal)}</td>
         `;
 
-        // Adiciona a nova linha à tabela
         invoiceTableBody.appendChild(newRow);
-
-        // Atualiza o valor total na nota
         totalValueSpan.textContent = formatCurrency(total);
-
-        // Limpa os campos do formulário para o próximo item
         itemForm.reset();
     });
 });
